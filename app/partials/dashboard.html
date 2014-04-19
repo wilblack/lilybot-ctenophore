@@ -1,0 +1,17 @@
+<p>Ctenophore</p>
+
+<p>Number of LEDS: {{leds.length}}</p>
+<form>
+    <input type="radio" name="mode" ng-model="tentacle.mode" value="scan"><label>Scan</label>
+    <input type="radio" name="mode" ng-model="tentacle.mode" value="passive"><label>Passive</label>
+    <input type="radio" name="mode" ng-model="tentacle.mode" value="off"><label>Off</label>
+    <input type="number" name="dt" min="0" ng-model="dt" ><label> Timer delta (milliseconds)</label>
+    <input type="text" name="bots" ng-model="app.bots" value="app.bots"><label>List of bots</label>
+
+</form>
+<div>WTF {{lastMessage}}</div>
+
+
+<div class="tentacle">
+    <div ng-repeat='led in tentacle.leds' ledcolor ng-model="tentacle.led.color" ></div>
+</div>

@@ -24,9 +24,9 @@ npm install
 
 ### Run the Application
 
-
+Put `/node_modules/http-server/bin/` on your path or in your .bachrc file and then 
 ```
-npm start
+http-server
 ```
 
 Now browse to the app at `http://localhost:8000/app/index.html`.

@@ -1,20 +1,8 @@
 <div width="{{window_width / tentacle.leds.length}}">
     <span class="led-color circle spin"
-            style="width:{{window_width / tentacle.leds.length}}px; background-color:{{led.color}}; box-shadow:0 0 15px 5px {{led.color}}; border:1px solid {{led.color}}; background-image: -webkit-radial-gradient(8px 8px, circle cover, {{ led.color === '#000' ? '#000':'white' }}, {{led.color}});">
+            style="width:{{window_width / tentacle.leds.length}}px; background-color:{{led.color}}; box-shadow:0 0 15px 5px {{led.color}}; border:1px solid {{led.color}}; background-image: -webkit-radial-gradient(8px 8px, circle cover, {{ led.color === '#000' ? '#000':'white' }}, {{led.color}});"
+            ng-click="ledClickCallback()"
+            >
     </span>
 
-    <div class="led-colors" ng-hide="true" >
-        <input  type="radio"
-                ng-model="led.color"
-                value="#0000FF"
-                >Blue
-        <input  type="radio"
-                ng-model="led.color"
-                value="#00FF00"
-                >Green
-        <input  type="radio"
-                ng-model="led.color"
-                value="#000000"
-                >Off
-    </div>
 </div>

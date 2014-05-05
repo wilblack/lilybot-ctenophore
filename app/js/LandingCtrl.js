@@ -1,14 +1,12 @@
 'use strict';
 
-/* Controllers */
-
-
-angular.module('myApp.controllers', [])
-  .controller('DashBoardCtrl', ['$scope', '$interval', 'ardyhWsFactory', function($scope, $interval, ardyhWs) {
+angular.module('myApp')
+  .controller('LandingCtrl', ['$scope', '$interval', '$timeout', 'ardyhWsFactory', function($scope, $interval, $timeout, ardyhWs) {
 
     var NUM_LEDS = 64;
     var timer = undefined;
     var timer_dir = -1;
+    
     $scope.app = {bots:['ctenophore']};  // Bots to control
     $scope.tentacle = {leds:[], active_index:0, mode:"passive"};
     $scope.dt = 400;
@@ -33,17 +31,26 @@ angular.module('myApp.controllers', [])
         if (mode === 'scan'){
             var NTIMES = 2*NUM_LEDS;
             var count = 0;
+            var index2 = NUM_LEDS - $scope.tentacle.active_index;
+
             timer = $interval(function() {
                 count++;
                 if (count === NTIMES) {
                     $scope.tentacle.mode = 'passive';
                 } else {
+
                     if( ($scope.tentacle.active_index === (NUM_LEDS-1)) || ($scope.tentacle.active_index === 0 )) {
-                    timer_dir = ($scope.tentacle.active_index === 0)? 1 : -1;
-                    } 
+                        timer_dir = ($scope.tentacle.active_index === 0)? 1 : -1;
+                    }
+
                     $scope.tentacle.active_index = ($scope.tentacle.active_index + timer_dir);
+                    index2 = NUM_LEDS -$scope.tentacle.active_index; 
+
                     $scope.tentacle.leds[$scope.tentacle.active_index].color = "#FF0000";
                     $scope.tentacle.leds[$scope.tentacle.active_index-timer_dir].color = "#000000";
+
+                    $scope.tentacle.leds[index2].color = "#FF0000";
+                    $scope.tentacle.leds[$scope.tentacle.active_index + timer_dir].color = "#000000";
                 }
 
             }, 0.5*$scope.dt, NTIMES);
@@ -51,13 +58,9 @@ angular.module('myApp.controllers', [])
             
         
         } else if (mode === 'passive'){
-            timer = $interval(function() {
-                var old_index = $scope.tentacle.active_index
-                $scope.tentacle.active_index = Math.round(Math.random()*NUM_LEDS);
-                
-                $scope.tentacle.leds[$scope.tentacle.active_index].color = ("#"+(Math.random().toString(16) + '000000').slice(2, 8));
-                $scope.tentacle.leds[old_index].color = "#000000";
-            }, $scope.dt);
+            
+            var timer1 = $scope.randomBlink();
+            var timer2 = $scope.pulse();
 
         } else if (mode === "target"){
             var width = 6;
@@ -128,6 +131,7 @@ angular.module('myApp.controllers', [])
     };
 
 
+
     // Create the leds array
     for (var i=1;i<=NUM_LEDS;i++){
         var led = Object.create(ledBase);
@@ -160,5 +164,61 @@ angular.module('myApp.controllers', [])
         $scope.setMode(newValue);
     }, true);
 
+
+
+
+    $scope.randomBlink = function(color){
+        timer = $interval(function() {
+                
+            if (typeof(color) === 'undefined') var color = "#"+(Math.random().toString(16) + '000000').slice(2, 8);
+
+            var old_index = $scope.tentacle.active_index
+            $scope.tentacle.active_index = Math.round(Math.random()*NUM_LEDS);
+            
+            $scope.tentacle.leds[$scope.tentacle.active_index].color = (color);
+            $scope.tentacle.leds[old_index].color = "#000000";
+        }, $scope.dt);
+        return timer;
+    };
+
+    $scope.fill = function(color){
+        timer = $interval(function() {
+            if (typeof(color) === 'undefined') var color = "#"+(Math.random().toString(16) + '000000').slice(2, 8);
+            for (var i=0;i<NUM_LEDS; i++){
+                $scope.tentacle.leds[i].color = (color);
+            }   
+
+        }, 10*$scope.dt);
+        return timer;
+    };
+
+    $scope.pulse = function(color, direction, new_dt){
+        if (typeof(new_dt) === 'undefined') var new_dt = 10*$scope.dt;
+        console.log(new_dt);
+
+        function anim(color, direction){
+            if (typeof(color) === 'undefined') var color = "#"+(Math.random().toString(16) + '000000').slice(2, 8);
+            direction = direction ? direction: 'forward';
+
+            for (var i=0;i<NUM_LEDS; i++){
+                $scope.tentacle.leds[i].color = color;
+            }
+
+            $timeout(function(){
+                for (var i=0;i<NUM_LEDS; i++){
+                    $scope.tentacle.leds[i].color = '#000000';
+                }
+            }, 500);
+        }
+
+        timer = $timeout(function() {
+            anim(color, direction);
+            new_dt = 1000*(Math.random()*4 + 8);
+            $scope.pulse(color, direction, new_dt);
+
+        }, new_dt);
+
+        return timer;
+    };
 
   }]);

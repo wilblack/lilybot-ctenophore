@@ -1,0 +1,13 @@
+<div>
+    <a href="#/dashboard">Dash</a>
+</div>
+
+
+<div class="tentacle">
+    <div ledcolor 
+         ng-repeat='led in tentacle.leds' 
+         tentacle="tentacle" 
+         led="led" 
+         index="$index" 
+         ng-style="{'z-index': tentacle.active_index === $index ? 100: 0}" ></div>
+</div>

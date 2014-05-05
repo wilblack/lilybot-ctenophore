@@ -7,10 +7,13 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  //'DashBoardCtrl',
+  //'LandingCtrl',
+  // 'myApp.DashBoardCtrl'
+
 ]).
 config(['$routeProvider', function($routeProvider) {
+  $routeProvider.when('/', {templateUrl: 'partials/landing.html', controller: 'LandingCtrl'});
   $routeProvider.when('/dashboard', {templateUrl: 'partials/dashboard.html', controller: 'DashBoardCtrl'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/dashboard'});
+  $routeProvider.otherwise({redirectTo: '/'});
 }]);

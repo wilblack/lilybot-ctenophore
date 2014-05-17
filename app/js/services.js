@@ -60,6 +60,10 @@ service.
                 _ws.send(JSON.stringify( messageObj));
             } else {
                 console.log("Could not send message, ready state = "+_ws.readyState);
+                if (_ws.readyState === 3){
+                    // Web socket is closed so try to re-establish connection
+                    this.login();
+                }
             }
             
         }

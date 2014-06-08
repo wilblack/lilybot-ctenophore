@@ -85,3 +85,10 @@ app.directive('ledcolor', ['ardyhWsFactory', function(ardyhWs){
     };
 }]);
 
+app.directive('mmcontrols', function(){
+    return {
+        restrict: 'A',
+        templateUrl: 'partials/mm-controls.html'
+    }
+});
+

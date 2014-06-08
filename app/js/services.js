@@ -11,13 +11,16 @@ var service = angular.module('myApp.services', []).
 
 // This example is taken from https://github.com/totaljs/examples/tree/master/angularjs-websocket
 service.
-    factory('ardyhWsFactory', ['$rootScope', '$timeout', function($rootScope, $timeout) {
+    factory('ardyhWsFactory', ['$rootScope', '$timeout', '$http', function($rootScope, $timeout, $http) {
     // Broadcasts to main scope as 'websocket'
     var _ws;
-    var _username = '';
+    var bot_name = 'mm-client.solalla.ardyh';
     var messages = [];
     var users = [];
-    var url = 'ws://173.255.213.55:9093/ws';
+
+    var url = 'ws://173.255.213.55:9093/ws?'+bot_name;
+    var webUrl = 'http://ardyh.solalla.com:9093';
+    var mmUrl = webUrl + '/magic-mushroom/';
 
 
     function onMessage(e) {
@@ -34,6 +37,7 @@ service.
     }
 
     return {
+        mmUrl : mmUrl,
         readyState: function(){
             return _ws.readyState;
         },
@@ -41,9 +45,13 @@ service.
         login: function(username) {
             _ws = new WebSocket(url);
             _ws.onmessage = onMessage;
-            _username = username;
+            
+            message = {'handshake':true,
+                       'bot_name':bot_name,
+                       'subscriptions':['rp2.solalla.ardyh']
+            }
             $timeout(function() {
-                _ws.send(JSON.stringify({ type: 'change', message: _username }));
+                _ws.send(JSON.stringify(message));
             }, 500);
         },
 
@@ -65,8 +73,13 @@ service.
                     this.login();
                 }
             }
-            
+        },
+
+        mmSetState: function(state, successCallback){
+            var url = mmUrl + '/set-state/?state=' + state; 
+            $http.get(url).success(successCallback);
         }
+
     };
 
 }]);

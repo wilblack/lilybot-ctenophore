@@ -23,6 +23,33 @@ npm install
 ```
 
 ### Run the Application
+The applicatio is currently running on a Digital Ocean Droplet at ctenophore.solalla.com behing a nginx server.
+
+## NGINX
+Check for running process on a port.
+```
+sudo netstat -tulpn
+```
+
+To inertact with the nginx server 
+```
+sudo service nginx restart
+```
+
+The condfiuuration fileis located at `/etc/nginx/nginx.conf`
+Here the relavant snippet 
+
+```
+server {
+        listen 80;
+        server_name ctenophore.solalla.com;
+        location / {
+                #proxy_pass http://localhost:8000/;
+                root "/home/wilblack/projects/lilybot-ctenophore/app";
+        }
+}
+```
+
 
 Put `/node_modules/http-server/bin/` on your path or in your .bachrc file and then 
 ```

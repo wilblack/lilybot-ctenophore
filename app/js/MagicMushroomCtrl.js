@@ -5,7 +5,7 @@ angular.module('myApp')
 .controller('MagicMushroomCtrl', ['$scope', 'ardyhWsFactory', function($scope, ardyhWs) {
 
     $scope.mm = {};
-    $scope.mm.state = '00FF00';
+    $scope.mm.state = 'off';
     
     $scope.$watch('mm.state', function(newValue){
         console.log(newValue);

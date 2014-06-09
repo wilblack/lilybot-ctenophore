@@ -85,10 +85,31 @@ app.directive('ledcolor', ['ardyhWsFactory', function(ardyhWs){
     };
 }]);
 
-app.directive('mmcontrols', function(){
+app.directive('mmcontrols', function($interval){
     return {
         restrict: 'A',
-        templateUrl: 'partials/mm-controls.html'
+        templateUrl: 'partials/mm-controls.html',
+        scope : {
+            state:'='
+        },
+        link : function(scope, element, attrs){
+            scope.colors = [{name:'Green', value:'00FF00'},
+                            {name:'Blue', value:'0000FF'},
+                            {name:'Red', value:'FF0000'},
+                            {name:'Purple', value:'9600FF'},
+                            {name:'Orange', value:'FF9300'},
+                           ];
+            scope.randomColors = ['#FF0000', '#00FF00', '#0000FF'];
+
+            var stop = $interval(function() {
+                scope.randomColors = [
+                    ("#"+(Math.random().toString(16) + '000000').slice(2, 8) ),
+                    ("#"+(Math.random().toString(16) + '000000').slice(2, 8)),
+                    ("#"+(Math.random().toString(16) + '000000').slice(2, 8))
+                ];
+
+            }, 100);
+        }
     }
 });
 

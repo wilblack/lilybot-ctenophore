@@ -46,7 +46,7 @@ service.
             _ws = new WebSocket(url);
             _ws.onmessage = onMessage;
             
-            message = {'handshake':true,
+            var message = {'handshake':true,
                        'bot_name':bot_name,
                        'subscriptions':['rp2.solalla.ardyh']
             }

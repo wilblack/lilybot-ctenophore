@@ -6,7 +6,7 @@ angular.module('myApp')
 
     $scope.mm = {};
     $scope.mm.state = '00FF00';
-
+    
     $scope.$watch('mm.state', function(newValue){
         console.log(newValue);
         ardyhWs.mmSetState(newValue, function(rs){

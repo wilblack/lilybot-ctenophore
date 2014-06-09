@@ -29,3 +29,11 @@ LED Styling
   height:100%;
 }
 
+.mm-controls .btn-group-vertical {
+  width:100%;
+}
+
+.mm-controls .btn-group-vertical .circle {
+  width:20px;
+  height:20px;
+}

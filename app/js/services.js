@@ -18,7 +18,8 @@ service.
     var messages = [];
     var users = [];
 
-    var url = 'ws://173.255.213.55:9093/ws?'+bot_name;
+    var ip = '162.243.146.219';
+    var url = 'ws://'+ip+':9093/ws?'+bot_name;
     var webUrl = 'http://ardyh.solalla.com:9093';
     var mmUrl = webUrl + '/magic-mushroom/';
 

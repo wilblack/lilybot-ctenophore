@@ -8,6 +8,14 @@
         <h3><span ng-repeat='randomColor in randomColors' class="circle" ng-style="{'background-color': randomColor}"></span> Random</h3>
     </label>
 
+    <label class="btn btn-default" ng-model="state" btn-radio="'red-white-blue'">
+        <h3><span ng-repeat='color in redWhiteBlue' class="circle" ng-style="{'background-color': color}"></span> Red, White & Blue</h3>
+    </label>
+
+    <label class="btn btn-default" ng-model="state" btn-radio="'green-purple'">
+        <h3><span ng-repeat='color in greenPurple' class="circle" ng-style="{'background-color': color}"></span> Green & Purple</h3>
+    </label>
+
     <label class="btn btn-default" ng-model="state" btn-radio="'off'"> 
         <h3><span class="circle" ng-style="{'background-color':'#000000'}"></span> Off</h3>
     </label>

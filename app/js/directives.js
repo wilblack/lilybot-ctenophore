@@ -99,6 +99,9 @@ app.directive('mmcontrols', function($interval){
                             {name:'Purple', value:'9600FF'},
                             {name:'Orange', value:'FF9300'},
                            ];
+            scope.redWhiteBlue = ['#FF0000', '#FFFFFF', '#0000FF']
+            scope.greenPurple = ['#00FF00', '#FF00FF']
+            
             scope.randomColors = ['#FF0000', '#00FF00', '#0000FF'];
 
             var stop = $interval(function() {

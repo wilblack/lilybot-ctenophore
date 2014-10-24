@@ -93,7 +93,9 @@ app.directive('mmcontrols', function($interval){
             state:'='
         },
         link : function(scope, element, attrs){
-            scope.colors = [{name:'Green', value:'00FF00'},
+            scope.colors = [
+                            {name:'White', value:'FFFFFF'},
+                            {name:'Green', value:'008800'},
                             {name:'Blue', value:'0000FF'},
                             {name:'Red', value:'FF0000'},
                             {name:'Purple', value:'9600FF'},
@@ -103,8 +105,23 @@ app.directive('mmcontrols', function($interval){
             scope.xmas = ['#FF0000', '#00FF00']
             scope.greenPurple = ['#00FF00', '#FF00FF']
             
-            scope.randomColors = ['#FF0000', '#00FF00', '#0000FF'];
 
+
+            // scope.modes = [{
+            //     "slug": "red-white-blue", 
+            //     "verbose": "Red, White & Blue", 
+            //     "colors" : ['#FF0000', '#FFFFFF', '#0000FF']
+            // }, {
+            //     "slug": "xmas", 
+            //     "verbose": "Christmas", 
+            //     "colors" : ['#FF0000', '#00FF00']
+            // }, {
+            //     "slug": "green-purple", 
+            //     "verbose": "Green & Purple", 
+            //     "colors" : ['#00FF00', '#FF00FF']
+            // }]
+
+            scope.randomColors = ['#FF0000', '#00FF00', '#0000FF'];
             var stop = $interval(function() {
                 scope.randomColors = [
                     ("#"+(Math.random().toString(16) + '000000').slice(2, 8) ),

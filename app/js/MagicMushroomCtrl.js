@@ -12,7 +12,5 @@ angular.module('myApp')
         ardyhWs.mmSetState(newValue, function(rs){
             console.log("in mmsetState success callback");
         });
-        
     });
-
 }]);
